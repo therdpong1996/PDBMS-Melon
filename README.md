@@ -1,4 +1,4 @@
-# pdbms-melon
+# PDBMS-MELON
 Source ESP8266 Code and Website Code for PDBMS-Melon
 
 ## วิธีติดตั้ง
@@ -16,3 +16,6 @@ Source ESP8266 Code and Website Code for PDBMS-Melon
 - เปลี่ยน `{{imgwidth}}` เป็นขนาดความกว้างของรูปภาพที่อัพโหลด (แนะนำ 512) (สูงสุด 1024)
 - เปลี่ยน `{{imgheight}}` เป็นขนาดความสูงของรูปภาพที่อัพโหลด (แนะนำ 512) (สูงสุด 1024)
 - เปลี่ยน `{{imgqua}}` เป็นคุณภาพ (ความละเอียด) ของรูปภาพที่อัพโหลดเป็น % (แนะนำ 80) (สูงสุด 100)
+
+## วิธีใช้งาน (ใช้ Method GET)
+- http(s)://`<domain-name>`/insert/?temp=`<temp>`&humi=`<humi>`&light=`<light>`&weight=`<weight>`&mosi=`<mosi>`
