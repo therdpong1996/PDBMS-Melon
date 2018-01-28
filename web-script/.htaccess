@@ -1,0 +1,7 @@
+RewriteEngine On 
+
+RewriteRule ^insert/$ /insert/index.php
+RewriteRule ^image/$ /image/index.php
+RewriteRule ^chart/$ /index.php?view=chart
+RewriteRule ^([a-zA-Z0-9]+)/$ index.php?view=info&identity=$1
+RewriteRule ^upload/([a-zA-Z0-9]+)/$ index.php?view=upload&identity=$1
