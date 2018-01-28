@@ -21,13 +21,13 @@ class mysql {
 
         $base64pic = '';
 
-        $stm = $this->con->prepare("INSERT INTO pdbms_data(identity,temp,humi,light,weight,datetime) VALUES (:identity, :temp, :humi, :light, :weight, :datetime)");
+        $stm = $this->con->prepare("INSERT INTO pdbms_data(identity,temp,humi,mosi,light,weight,datetime) VALUES (:identity, :temp, :humi, :mosi, :light, :weight, CURRENT_TIMESTAMP)");
         $stm->bindParam(':identity', $this->identity);
         $stm->bindParam(':temp', $this->data['temp']);
         $stm->bindParam(':humi', $this->data['humi']);
+        $stm->bindParam(':mosi', $this->data['mosi']);
         $stm->bindParam(':light', $this->data['light']);
         $stm->bindParam(':weight', $this->data['weight']);
-        $stm->bindParam(':datetime', $this->data['datetime']);
 
         $stm2 = $this->con->prepare("INSERT INTO pdbms_picture(identity,base64pic) VALUES (:identity, :base64pic)");
         $stm2->bindParam(':identity', $this->identity);
