@@ -19,7 +19,7 @@
                                             <div class="card border-dark">
                                                 <div class="card-body">
                                                     <h2>
-                                                        <?php echo date('d-m-Y H:i:s', $lasted['datetime']); ?> <small>หรือ <?php echo ago($lasted['datetime']);?>ที่ผ่านมา</small>
+                                                        <?php echo $lasted['datetime']; ?> <small>หรือ <?php echo ago(strtotime($lasted['datetime']));?>ที่ผ่านมา</small>
                                                     </h2>
                                                 </div>
                                             </div>
@@ -39,31 +39,42 @@
                                             <div class="card card-inverse border-info">
                                                 <div class="card-block text-info">
                                                     <div class="rotate">
-                                                        <i class="fa fa-tint fa-5x"></i>
+                                                        <i class="fa fa-snowflake-o fa-5x"></i>
                                                     </div>
-                                                    <h6 class="text-uppercase"><i class="fa fa-tint"></i> Humidity</h6>
+                                                    <h6 class="text-uppercase"><i class="fa fa-snowflake-o"></i> Humidity</h6>
                                                     <h1 class="display-1" id="sql-display-humi"><?php echo $lasted['humi']; ?></h1>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="card card-inverse border-warning">
                                                 <div class="card-block text-warning">
                                                     <div class="rotate">
-                                                        <i class="fa fa-sun-o fa-5x"></i>
+                                                        <i class="fa fa-sun-o fa-4x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-sun-o"></i> Light</h6>
                                                     <h1 class="display-1" id="sql-display-light"><?php echo $lasted['light']; ?></h1>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="card card-inverse border-info">
+                                                <div class="card-block text-info">
+                                                    <div class="rotate">
+                                                        <i class="fa fa-tint fa-4x"></i>
+                                                    </div>
+                                                    <h6 class="text-uppercase"><i class="fa fa-tint"></i> Mositure</h6>
+                                                    <h1 class="display-1" id="sql-display-mosi"><?php echo $lasted['mosi']; ?></h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="card card-inverse border-danger">
                                                 <div class="card-block text-danger">
                                                     <div class="rotate">
-                                                        <i class="fa fa-object-ungroup fa-5x"></i>
+                                                        <i class="fa fa-balance-scale fa-4x"></i>
                                                     </div>
-                                                    <h6 class="text-uppercase"><i class="fa fa-object-ungroup"></i> Weight</h6>
+                                                    <h6 class="text-uppercase"><i class="fa fa-balance-scale"></i> Weight</h6>
                                                     <h1 class="display-1" id="sql-display-weight"><?php echo $lasted['weight']; ?></h1>
                                                 </div>
                                             </div>
@@ -71,7 +82,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <img src="<?php echo $lasted['base64pic'];?>" class="img-thumbnail">
+                                    <?php
+                                        if (empty($lasted['base64pic'])) {
+                                            echo '<img src="https://i.imgur.com/26EU34m.jpg" width="100%" class="img-thumbnail">';
+                                        }else{
+                                            echo '<img src="'.$lasted['base64pic'].'" width="100%" class="img-thumbnail">';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         <hr>
