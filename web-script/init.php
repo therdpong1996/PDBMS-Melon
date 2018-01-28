@@ -1,9 +1,8 @@
 <?php
-    date_default_timezone_set("Asia/Bangkok");
-    
-    $dsn = 'mysql:host=localhost;dbname=;charset=utf8';
-    $username = '';
-    $password = '';
+   
+    $dsn = 'mysql:host={{host}};dbname={{dbname}};charset=utf8';
+    $username = '{{username}}';
+    $password = '{{password}}';
 
     try{
         $con = new PDO($dsn, $username, $password);
@@ -11,15 +10,15 @@
         $ex->getMessage();
     }
 
-    $init['url'] = '';
+    $init['url'] = '{{wsurl}}';
 
-    $init['upload_password'] = '';
+    $init['upload_password'] = '{{imgpass}}';
 
-    $firebase['databaseURL'] = '';
+    $firebase['databaseURL'] = '{{fburl}}';
 
-    $camera['width'] = '512';
-    $camera['height'] = '512';
-    $camera['quality'] = '80';
+    $camera['width'] = '{{imgwidth}}';
+    $camera['height'] = '{{imgheight}}';
+    $camera['quality'] = '{{imgqua}}';
 
     function ago($time){
        $periods = array("วินาที", "นาที", "ชั่วโมง", "วัน", "สัปดาห์", "เดือน", "ปี", "ทศวรรษ");
