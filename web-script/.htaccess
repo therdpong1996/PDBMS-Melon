@@ -1,5 +1,8 @@
 RewriteEngine On 
 
+RewriteRule ^api/lasted/$ /api/lasted.php
+RewriteRule ^api/chart/$ /api/chart.php
+RewriteRule ^api/update-chart/$ /api/update-chart.php
 RewriteRule ^insert/$ /insert/index.php
 RewriteRule ^image/$ /image/index.php
 RewriteRule ^chart/$ /index.php?view=chart
