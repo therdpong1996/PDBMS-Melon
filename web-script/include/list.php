@@ -2,16 +2,7 @@
             <div class="container warpper">
                 <div class="row">
                     <div class="col-12">
-                        <h4><i class="fa fa-clock-o"></i> Lasted</h4>
-                        <?php
-                                $stm = $con->prepare("SELECT * FROM pdbms_data JOIN pdbms_picture ON pdbms_data.identity = pdbms_picture.identity ORDER BY pdbms_data.datetime DESC LIMIT 1");
-                                try {
-                                    $stm->execute();
-                                } catch (Exception $e) {
-                                    $e->getMessage();
-                                }
-                                $lasted = $stm->fetch(PDO::FETCH_ASSOC);
-                            ?>
+                        <h4><i class="fa fa-clock-o"></i> Lasted <small id="sql-update">0000-00-00 00:00:00</small></h4>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
@@ -19,7 +10,7 @@
                                             <div class="card border-dark">
                                                 <div class="card-body">
                                                     <h2>
-                                                        <?php echo $lasted['datetime']; ?> <small>หรือ <?php echo ago(strtotime($lasted['datetime']));?>ที่ผ่านมา</small>
+                                                        ณ เวลา <span id="sql-datetime">0000-00-00 00:00:00</span> <small>หรือ <span id="sql-ago">0 </span>ที่ผ่านมา</small>
                                                     </h2>
                                                 </div>
                                             </div>
@@ -31,7 +22,7 @@
                                                         <i class="fa fa-thermometer-quarter fa-5x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-thermometer-quarter"></i> Temperature</h6>
-                                                    <h1 class="display-1" id="sql-display-temp"><?php echo $lasted['temp']; ?></h1>
+                                                    <h1 class="display-1" id="sql-temp">0.00</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -42,7 +33,7 @@
                                                         <i class="fa fa-snowflake-o fa-5x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-snowflake-o"></i> Humidity</h6>
-                                                    <h1 class="display-1" id="sql-display-humi"><?php echo $lasted['humi']; ?></h1>
+                                                    <h1 class="display-1" id="sql-humi">0.00</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,7 +44,7 @@
                                                         <i class="fa fa-sun-o fa-4x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-sun-o"></i> Light</h6>
-                                                    <h1 class="display-1" id="sql-display-light"><?php echo $lasted['light']; ?></h1>
+                                                    <h1 class="display-1" id="sql-light">0.00</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,7 +55,7 @@
                                                         <i class="fa fa-tint fa-4x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-tint"></i> Mositure</h6>
-                                                    <h1 class="display-1" id="sql-display-mosi"><?php echo $lasted['mosi']; ?></h1>
+                                                    <h1 class="display-1" id="sql-mosi">0.00</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,37 +66,40 @@
                                                         <i class="fa fa-balance-scale fa-4x"></i>
                                                     </div>
                                                     <h6 class="text-uppercase"><i class="fa fa-balance-scale"></i> Weight</h6>
-                                                    <h1 class="display-1" id="sql-display-weight"><?php echo $lasted['weight']; ?></h1>
+                                                    <h1 class="display-1" id="sql-weight">0.00</h1>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <?php
-                                        if (empty($lasted['base64pic'])) {
-                                            echo '<img src="https://i.imgur.com/26EU34m.jpg" width="100%" class="img-thumbnail">';
-                                        }else{
-                                            echo '<img src="'.$lasted['base64pic'].'" width="100%" class="img-thumbnail">';
-                                        }
-                                    ?>
+                                <div class="col-md-4" id="sql-image">
                                 </div>
                             </div>
-                        <hr>
-                        <h4><i class="fa fa-clock-o"></i> History</h4>
-                        <div class="list-group">
-                            <?php
-                                $stm2 = $con->prepare("SELECT * FROM pdbms_data ORDER BY datetime DESC");
-                                try {
-                                    $stm2->execute();
-                                } catch (Exception $e) {
-                                    $e->getMessage();
-                                }
-                                while ($rows = $stm2->fetch(PDO::FETCH_ASSOC)) {
-                                    echo '<a href="' . $rows['identity'] . '/" class="list-group-item list-group-item-action"><h4 class="list-group-item-heading">' . date('d-m-Y H:i:s', $rows['datetime']) . '</h4><small class="list-group-item-text">Temperature: ' . $rows['temp'] . '°C / Humidity: ' . $rows['humi'] . '</small></a>';
-                                }
-                            ?>
-                        </div>
                     </div>
                 </div>
             </div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        getLastedInfo()
+                    });
+                    setInterval(getLastedInfo, 5000)
+                    function getLastedInfo(){
+                        $.ajax({
+                            url: 'api/lasted/',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {ondisplay: true},
+                        })
+                        .done(function(d) {
+                            $('#sql-datetime').html(d.datetime)
+                            $('#sql-weight').html(d.weight)
+                            $('#sql-temp').html(d.temp)
+                            $('#sql-humi').html(d.humi)
+                            $('#sql-light').html(d.light)
+                            $('#sql-mosi').html(d.mosi)
+                            $('#sql-ago').html(d.ago)
+                            $('#sql-update').html(d.update)
+                            $('#sql-image').html('<img src="' + d.base64pic + '" width="100%" class="img-thumbnail">')
+                        })
+                    }
+                </script>
