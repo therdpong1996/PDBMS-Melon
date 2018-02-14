@@ -10,6 +10,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="../"><i class="fa fa-home" aria-hidden="true"></i> หน้าแรก <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../chart/"><i class="fa fa-bar-chart" aria-hidden="true"></i> กราฟ</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
 
