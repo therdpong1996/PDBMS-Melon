@@ -17,8 +17,8 @@
         array_push($result['label'], $rows['datetime']);
         array_push($result['temp'], $rows['temp']);
         array_push($result['humi'], $rows['humi']);
-        array_push($result['light'], $rows['mosi']);
-        array_push($result['mosi'], $rows['light']);
+        array_push($result['light'], $rows['light']);
+        array_push($result['mosi'], $rows['mosi']);
         array_push($result['weight'], $rows['weight']);
         array_push($result['lasttime'], $rows['datetime']);
     }
